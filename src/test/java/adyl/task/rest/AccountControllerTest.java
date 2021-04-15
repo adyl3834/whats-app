@@ -23,6 +23,7 @@ import java.awt.image.WritableRaster;
 import java.io.File;
 import java.io.IOException;
 import java.net.URI;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Set;
 
@@ -55,7 +56,7 @@ class AccountControllerTest {
     @DisplayName("/login rest api test")
     void login() {
         //prepare
-        prepareAccount();
+        accountRepository.save(prepareAccount());
         //act
         URI targetUrl = UriComponentsBuilder.fromUriString("/whatsapp/account/login")
                 .queryParam("name", ACCOUNT_NAME)
@@ -133,7 +134,7 @@ class AccountControllerTest {
         Account account = accountRepository.save(prepareAccount());
         //act
         accountController.delete(account.getId());
-        Account accountById = accountController.getAccountById(account.getId());
+        Account accountById = accountRepository.getById(account.getId());
         //assert
         assertNull(accountById);
     }
@@ -164,7 +165,7 @@ class AccountControllerTest {
 
     private Account prepareAccountWithImage() throws IOException {
         byte[] image = extractBytes();
-        return Account.builder().name(ACCOUNT_NAME).accountPicture(Image.builder().imageName(image).build()).build();
+        return Account.builder().name(ACCOUNT_NAME).accountPicture(Image.builder().imageName(image).data(LocalDate.now()).build()).build();
     }
 
     private Account prepareAccount() {

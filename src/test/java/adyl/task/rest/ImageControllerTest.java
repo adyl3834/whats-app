@@ -108,6 +108,6 @@ class ImageControllerTest {
     }
 
     private Image prepareImage() throws IOException {
-        return Image.builder().imageName(extractBytes()).build();
+        return Image.builder().imageName(extractBytes()).data(LocalDate.now()).build();
     }
 }
