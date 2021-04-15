@@ -12,8 +12,8 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.dao.DataIntegrityViolationException;
 
+import javax.validation.ConstraintViolationException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
@@ -63,9 +63,9 @@ class MassageControllerTest {
     void saveWithoutJoin() {
 
         //act
-        Exception ex = assertThrows(DataIntegrityViolationException.class, () -> massageController.save(prepareMassage()));
+        Exception ex = assertThrows(ConstraintViolationException.class, () -> massageController.save(prepareMassage()));
         //assert
-        assertEquals(ex.getCause().getClass().getSimpleName(), "ConstraintViolationException");
+        assertEquals(ex.getClass().getSimpleName(), "ConstraintViolationException");
 
     }
 
