@@ -1,0 +1,152 @@
+<databaseChangeLog
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <!--<changeSet id="8" author="liquibase">
+
+       &lt;!&ndash; <dropTable tableName="account"/>
+        <dropTable tableName="chat"/>
+        <dropTable tableName="image"/>
+        <dropTable tableName="massage"/>
+        <dropTable tableName="account_chat"/>
+        <dropTable tableName="sticker_pack"/>
+        <dropTable tableName="account_sticker_pack"/>&ndash;&gt;
+
+        <createTable tableName="account">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="name" type="varchar(50)"/>
+            <column name="account_picture" type="BIGINT"/>
+        </createTable>
+
+        <createTable tableName="account_chat">
+            <column name="account_id" type="BIGINT" >
+                <constraints nullable="false" />
+            </column>
+            <column name="chat_id" type="BIGINT" >
+                <constraints nullable="false" />
+            </column>
+        </createTable>
+        
+        <createTable tableName="chat">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="chat_name" type="varchar(255)"/>
+            <column name="notification_enable" type="BOOLEAN"/>
+            <column name="chat_picture" type="BIGINT"/>
+        </createTable>
+
+        <createTable tableName="image" >
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="image_name" type="BINARY" >
+                <constraints nullable="false" />
+            </column>
+            <column name="data" type="date"/>
+        </createTable>
+
+        <createTable tableName="sticker_pack">
+            <column name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="owner_id" type="BIGINT" >
+                <constraints nullable="false" />
+            </column>
+            <column name="pack_name" type="varchar(50)"/>
+        </createTable>
+
+        <createTable tableName="account_sticker_pack">
+            <column name="account_id" type="BIGINT" >
+                <constraints nullable="false" />
+            </column>
+            <column name="sticker_pack_id" type="BIGINT" >
+                <constraints nullable="false" />
+            </column>
+        </createTable>
+
+        <createTable tableName="sticker">
+            <column name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="sticker_pack_id" type="BIGINT" >
+                <constraints nullable="false" />
+            </column>
+            <column name="sticker_image" type="BIGINT"/>
+        </createTable>
+
+        <createTable tableName="massage">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="chat_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="sender_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="massage_reply" type="BIGINT"/>
+            <column name="massage_type" type="varchar(255)" >
+                <constraints nullable="false"/>
+            </column>
+            <column name="massage" type="varchar(255)"/>
+            <column name="sticker_id" type="BIGINT"/>
+            <column name="datetime" type="datetime"/>
+        </createTable>
+    </changeSet>-->
+    <changeSet id="12" author="liquibase">
+
+        <!--<dropTable tableName="image"/>
+        <createTable tableName="image" >
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="image_name" type="BINARY" >
+                <constraints nullable="false" />
+            </column>
+            <column name="data" type="date"/>
+        </createTable>-->
+        <dropTable tableName="sticker"/>
+        <createTable tableName="sticker">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="sticker_pack_id" type="BIGINT" >
+                <constraints nullable="false" />
+            </column>
+            <column name="sticker_image" type="BIGINT"/>
+        </createTable>
+        <!--<createTable tableName="sticker_pack">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="owner_id" type="BIGINT" >
+                <constraints nullable="false" />
+            </column>
+            <column name="pack_name" type="varchar(50)"/>
+        </createTable>-->
+        <!--<createTable tableName="massage">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="chat_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="sender_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="massage_reply" type="BIGINT"/>
+            <column name="massage_type" type="varchar(255)" >
+                <constraints nullable="false"/>
+            </column>
+            <column name="massage" type="varchar(255)"/>
+            <column name="sticker_id" type="BIGINT"/>
+            <column name="datetime" type="datetime"/>
+        </createTable>-->
+    </changeSet>
+
+</databaseChangeLog>
