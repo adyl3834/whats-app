@@ -11,7 +11,7 @@ import static adyl.task.type.MassageType.MASSAGE;
 import static adyl.task.type.MassageType.STICKER;
 
 @Service
-public class MassageService {
+public class  MassageService {
     @Autowired
     private MassageRepository massageRepository;
 
