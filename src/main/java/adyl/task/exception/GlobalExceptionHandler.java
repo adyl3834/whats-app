@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 
-import java.sql.SQLException;
 import java.util.Date;
 
 @ControllerAdvice
@@ -28,8 +27,8 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(errorDetails, HttpStatus.BAD_REQUEST);
     }
 
-    @ExceptionHandler(SQLException.class)
-    public ResponseEntity<?> sQLException(SQLException exception, WebRequest request) {
+    @ExceptionHandler(MassageTypeException.class)
+    public ResponseEntity<?> massageTypeException(MassageTypeException exception, WebRequest request) {
         ErrorDetails errorDetails =
                 new ErrorDetails(new Date(), exception.getMessage(), request.getDescription(false));
         return new ResponseEntity<>(errorDetails, HttpStatus.BAD_REQUEST);
