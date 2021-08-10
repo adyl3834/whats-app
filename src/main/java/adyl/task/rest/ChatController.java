@@ -1,10 +1,8 @@
 package adyl.task.rest;
 
 import adyl.task.model.Chat;
-import adyl.task.model.Image;
 import adyl.task.model.Massage;
 import adyl.task.service.ChatService;
-import adyl.task.service.ImageService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -18,8 +16,6 @@ import java.util.List;
 public class ChatController {
     @Autowired
     private ChatService chatService;
-    @Autowired
-    private ImageService imageService;
 
     @PostMapping(value = "createChat", produces = MediaType.APPLICATION_JSON_VALUE,
             consumes = MediaType.APPLICATION_JSON_VALUE)
@@ -27,11 +23,6 @@ public class ChatController {
             notes = "Save new Account",
             response = Chat.class)
     public Chat save(@Validated @RequestBody final Chat chat) {
-        Image image = chat.getChatPicture();
-        if (image != null && image.getId() == null) {
-            image = imageService.save(image);
-            chat.setChatPicture(image);
-        }
         return chatService.save(chat);
     }
 
