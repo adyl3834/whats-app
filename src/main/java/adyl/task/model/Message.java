@@ -27,18 +27,18 @@ public class Message implements Serializable {
     @JoinColumn(name = "chat_id")
     @NotFound(action = NotFoundAction.EXCEPTION)
     @NotNull(message = "Chat_id is mandatory")
-    private Chat chat_id;
+    private Chat chatId;
 
     @ManyToOne
     @JoinColumn(name = "sender_id")
     @NotFound(action = NotFoundAction.EXCEPTION)
     @NotNull(message = "Sender_id is mandatory")
-    private Account sender_id;
+    private Account senderId;
 
     @OneToOne
     @JoinColumn(name = "message_reply")
     @NotFound(action = NotFoundAction.IGNORE)
-    private Message message_reply;
+    private Message messageReply;
 
     @Enumerated(EnumType.STRING)
     @NotFound(action = NotFoundAction.EXCEPTION)
@@ -52,7 +52,7 @@ public class Message implements Serializable {
     @OneToOne
     @JoinColumn(name = "sticker_id")
     @NotFound(action = NotFoundAction.IGNORE)
-    private Sticker sticker_id;
+    private Sticker stickerId;
 
     @Column(nullable = false)
     @NotNull(message = "DateTime is mandatory")

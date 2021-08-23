@@ -19,9 +19,9 @@ public class MassageService {
     }
 
     public Message save(Message message) {
-        if (message.getMessageType().equals(MASSAGE) && message.getSticker_id() != null && message.getMassage() == null) {
+        if (message.getMessageType().equals(MASSAGE) && message.getStickerId() != null && message.getMassage() == null) {
             throw new MessageTypeException("MassageType is MASSAGE, Massage must be text!");
-        } else if (message.getMessageType().equals(STICKER) && message.getMassage() != null && message.getSticker_id() == null) {
+        } else if (message.getMessageType().equals(STICKER) && message.getMassage() != null && message.getStickerId() == null) {
             throw new MessageTypeException("MassageType is STICKER, Massage must be sticker!");
         }
         return messageRepository.save(message);

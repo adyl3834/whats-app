@@ -48,8 +48,8 @@ class MessageControllerTest {
         Message message = prepareMassage();
         Account account = accountRepository.save(prepareAccount());
         Chat chat = chatRepository.save(prepareChat());
-        message.setSender_id(account);
-        message.setChat_id(chat);
+        message.setSenderId(account);
+        message.setChatId(chat);
         //act
         Message save = messageController.save(message);
         //assert
@@ -76,17 +76,17 @@ class MessageControllerTest {
         Message message = prepareMassage();
         Account account = accountRepository.save(prepareAccount());
         Chat chat = chatRepository.save(prepareChat());
-        message.setSender_id(account);
-        message.setChat_id(chat);
+        message.setSenderId(account);
+        message.setChatId(chat);
         Message save = messageController.save(message);
-        save.setMessage_reply(save);
+        save.setMessageReply(save);
         //act
         messageController.save(save);
         //assert
         assertNotNull(save);
         assertEquals(MASSAGE_TEXT, message.getMassage());
         assertEquals(MASSAGE, save.getMessageType());
-        assertEquals(save.getId(), save.getMessage_reply().getId());
+        assertEquals(save.getId(), save.getMessageReply().getId());
     }
 
     @Test
@@ -96,8 +96,8 @@ class MessageControllerTest {
         Message message = prepareMassage();
         Account account = accountRepository.save(prepareAccount());
         Chat chat = chatRepository.save(prepareChat());
-        message.setSender_id(account);
-        message.setChat_id(chat);
+        message.setSenderId(account);
+        message.setChatId(chat);
         message.setMessageType(STICKER);
         //act
         Throwable ex = assertThrows(NullPointerException.class, () -> messageController.save(message));
@@ -112,10 +112,10 @@ class MessageControllerTest {
         Message message = prepareMassage();
         Account account = accountRepository.save(prepareAccount());
         Chat chat = chatRepository.save(prepareChat());
-        message.setSender_id(account);
-        message.setChat_id(chat);
+        message.setSenderId(account);
+        message.setChatId(chat);
         message.setMassage(null);
-        message.setSticker_id(Sticker.builder().build());
+        message.setStickerId(Sticker.builder().build());
         //act
         Throwable ex = assertThrows(NullPointerException.class, () -> messageController.save(message));
         //assert
@@ -129,8 +129,8 @@ class MessageControllerTest {
         Message message = prepareMassage();
         Account account = accountRepository.save(prepareAccount());
         Chat chat = chatRepository.save(prepareChat());
-        message.setSender_id(account);
-        message.setChat_id(chat);
+        message.setSenderId(account);
+        message.setChatId(chat);
         Message save = messageRepository.save(message);
         String UPDATE_MASSAGE_TEXT = "updateMassage";
         save.setMassage(UPDATE_MASSAGE_TEXT);
@@ -149,15 +149,15 @@ class MessageControllerTest {
         Message message = prepareMassage();
         Account account = accountRepository.save(prepareAccount());
         Chat chat = chatRepository.save(prepareChat());
-        message.setSender_id(account);
-        message.setChat_id(chat);
+        message.setSenderId(account);
+        message.setChatId(chat);
         messageRepository.save(message);
 
         Message secondMessage = prepareMassage();
         Account secondAccount = accountRepository.save(prepareAccount());
         Chat secondChat = chatRepository.save(prepareChat());
-        secondMessage.setSender_id(secondAccount);
-        secondMessage.setChat_id(secondChat);
+        secondMessage.setSenderId(secondAccount);
+        secondMessage.setChatId(secondChat);
         messageRepository.save(secondMessage);
         //act
         ArrayList<Message> messages = (ArrayList<Message>) messageController.getAllMassages();
@@ -173,8 +173,8 @@ class MessageControllerTest {
         Message message = prepareMassage();
         Account account = accountRepository.save(prepareAccount());
         Chat chat = chatRepository.save(prepareChat());
-        message.setSender_id(account);
-        message.setChat_id(chat);
+        message.setSenderId(account);
+        message.setChatId(chat);
         Message save = messageRepository.save(message);
         //act
         messageController.delete(save.getId());

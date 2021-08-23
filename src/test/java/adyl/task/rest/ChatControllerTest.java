@@ -115,16 +115,16 @@ class ChatControllerTest {
         Message message = prepareMassage();
         Account account = accountRepository.save(prepareAccount());
         Chat chat = chatRepository.save(prepareChat());
-        message.setSender_id(account);
-        message.setChat_id(chat);
+        message.setSenderId(account);
+        message.setChatId(chat);
         messageRepository.save(message);
         Message message2 = prepareMassage();
-        message2.setSender_id(account);
-        message2.setChat_id(chat);
+        message2.setSenderId(account);
+        message2.setChatId(chat);
         messageRepository.save(message2);
         Message message3 = prepareMassage();
-        message3.setSender_id(account);
-        message3.setChat_id(chat);
+        message3.setSenderId(account);
+        message3.setChatId(chat);
         messageRepository.save(message3);
         //act
         List<Message> messages = chatController.getMessagesById(chat.getId());
