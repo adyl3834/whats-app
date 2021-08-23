@@ -2,15 +2,17 @@ package adyl.task.service;
 
 import adyl.task.model.Image;
 import adyl.task.repository.ImageRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
 public class ImageService {
-    @Autowired
     ImageRepository imageRepository;
+
+    public ImageService(ImageRepository imageRepository) {
+        this.imageRepository = imageRepository;
+    }
 
     public Image save(Image image) {
         return imageRepository.save(image);

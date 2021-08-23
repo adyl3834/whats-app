@@ -4,17 +4,19 @@ import adyl.task.model.Chat;
 import adyl.task.model.Massage;
 import adyl.task.repository.ChatRepository;
 import adyl.task.repository.MassageRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
 public class ChatService {
-    @Autowired
     private ChatRepository chatRepository;
-    @Autowired
     private MassageRepository massageRepository;
+
+    public ChatService(ChatRepository chatRepository, MassageRepository massageRepository) {
+        this.chatRepository = chatRepository;
+        this.massageRepository = massageRepository;
+    }
 
     public Chat save(Chat chat) {
         return chatRepository.save(chat);
