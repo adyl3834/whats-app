@@ -1,9 +1,9 @@
 package adyl.task.service;
 
 import adyl.task.model.Chat;
-import adyl.task.model.Massage;
+import adyl.task.model.Message;
 import adyl.task.repository.ChatRepository;
-import adyl.task.repository.MassageRepository;
+import adyl.task.repository.MessageRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -11,11 +11,11 @@ import java.util.List;
 @Service
 public class ChatService {
     private ChatRepository chatRepository;
-    private MassageRepository massageRepository;
+    private MessageRepository messageRepository;
 
-    public ChatService(ChatRepository chatRepository, MassageRepository massageRepository) {
+    public ChatService(ChatRepository chatRepository, MessageRepository messageRepository) {
         this.chatRepository = chatRepository;
-        this.massageRepository = massageRepository;
+        this.messageRepository = messageRepository;
     }
 
     public Chat save(Chat chat) {
@@ -38,7 +38,7 @@ public class ChatService {
         return (List<Chat>) chatRepository.findAll();
     }
 
-    public List<Massage> getMassagesById(Long id) {
-        return massageRepository.getMassagesById(id);
+    public List<Message> getMessagesById(Long id) {
+        return messageRepository.getMessagesById(id);
     }
 }

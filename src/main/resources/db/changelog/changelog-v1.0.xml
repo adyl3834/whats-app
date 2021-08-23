@@ -4,7 +4,7 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
                       http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
 
-    <changeSet id="1" author="adyl">
+    <changeSet id="3" author="adyl">
 
         <createTable tableName="account">
             <column name="id" type="BIGINT" autoIncrement="true">
@@ -71,7 +71,7 @@
             <column name="sticker_image" type="BIGINT"/>
         </createTable>
 
-        <createTable tableName="massage">
+        <createTable tableName="message">
             <column name="id" type="BIGINT" autoIncrement="true">
                 <constraints nullable="false" primaryKey="true"/>
             </column>
@@ -85,7 +85,7 @@
             <column name="massage_type" type="varchar(255)" >
                 <constraints nullable="false"/>
             </column>
-            <column name="massage" type="varchar(255)"/>
+            <column name="message" type="varchar(255)"/>
             <column name="sticker_id" type="BIGINT"/>
             <column name="datetime" type="datetime"/>
         </createTable>

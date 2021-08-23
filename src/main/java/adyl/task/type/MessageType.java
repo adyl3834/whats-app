@@ -1,6 +1,6 @@
 package adyl.task.type;
 
-public enum MassageType {
+public enum MessageType {
     MASSAGE,
     STICKER
 }
