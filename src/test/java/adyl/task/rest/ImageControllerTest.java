@@ -90,7 +90,7 @@ class ImageControllerTest {
         Image image = imageRepository.save(prepareImage());
         //act
         imageController.deleteById(image.getId());
-        Image nullImage = imageRepository.getById(image.getId());
+        Image nullImage = imageRepository.findImageById(image.getId());
         //assert
         assertNull(nullImage);
     }

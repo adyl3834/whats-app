@@ -19,7 +19,7 @@ public class StickerService {
     }
 
     public List<Sticker> findAll() {
-        return (List<Sticker>) stickerRepository.findAll();
+        return stickerRepository.findAll();
     }
 
     public void deleteById(Long id) {

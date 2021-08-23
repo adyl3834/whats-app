@@ -31,7 +31,7 @@ public class AccountService {
     }
 
     public Account getAccountByName(String name) {
-        return accountRepository.getByName(name);
+        return accountRepository.findByName(name);
     }
 
     public Account update(Account account) {
@@ -47,11 +47,11 @@ public class AccountService {
     }
 
     public Account getByChatId(Long id) {
-        return accountRepository.getById(id);
+        return accountRepository.findAccountById(id);
     }
 
     public Set<Chat> findAllChats(Long id) {
-        Account account = accountRepository.getById(id);
+        Account account = accountRepository.findAccountById(id);
         if (account == null) {
             throw new ResourceNotFoundException("Not found chats with id :" + id);
         }

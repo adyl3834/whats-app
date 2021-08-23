@@ -103,7 +103,7 @@ class ChatControllerTest {
         Chat chat = chatRepository.save(prepareChat());
         //act
         chatController.deleteById(chat.getId());
-        Chat nullChat = chatRepository.getById(chat.getId());
+        Chat nullChat = chatRepository.findChatById(chat.getId());
         //assert
         assertNull(nullChat);
     }

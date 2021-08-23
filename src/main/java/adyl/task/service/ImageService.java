@@ -27,7 +27,7 @@ public class ImageService {
     }
 
     public Image getByChatId(Long id) {
-        return imageRepository.getById(id);
+        return imageRepository.findImageById(id);
     }
 
     public List<Image> findAll() {

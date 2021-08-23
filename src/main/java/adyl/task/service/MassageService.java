@@ -28,7 +28,7 @@ public class MassageService {
     }
 
     public List<Message> findAll() {
-        return (List<Message>) messageRepository.findAll();
+        return messageRepository.findAll();
     }
 
     public void deleteById(Long id) {

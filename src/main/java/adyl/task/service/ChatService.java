@@ -31,14 +31,14 @@ public class ChatService {
     }
 
     public Chat getByChatId(Long id) {
-        return chatRepository.getById(id);
+        return chatRepository.findChatById(id);
     }
 
     public List<Chat> findAll() {
-        return (List<Chat>) chatRepository.findAll();
+        return  chatRepository.findAll();
     }
 
     public List<Message> getMessagesById(Long id) {
-        return messageRepository.getMessagesById(id);
+        return messageRepository.findMessagesById(id);
     }
 }

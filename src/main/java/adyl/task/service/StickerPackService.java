@@ -24,7 +24,7 @@ public class StickerPackService {
     }
 
     public List<StickerPack> findAll() {
-        return (List<StickerPack>) stickerPackRepository.findAll();
+        return stickerPackRepository.findAll();
     }
 
     public void deleteById(Long id) {
