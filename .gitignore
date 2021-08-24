@@ -1,0 +1,7 @@
+**/.idea/*
+**/.run/*
+**/target/*
+**/*.iml
+**/logs/
+*local.properties
+spring-https.jksw

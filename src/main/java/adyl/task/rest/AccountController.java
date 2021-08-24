@@ -26,7 +26,10 @@ public class AccountController {
             response = Account.class)
 
     public Account login(@RequestParam(value = "name") String name) {
-        return accountService.getAccountByName(name);
+        Account result = accountService.getAccountByName(name);
+        if (result != null) {
+            return result;
+        } else throw new ResourceNotFoundException("Account not found with name :" + name);
     }
 
     @PostMapping(value = "createAccount", produces = MediaType.APPLICATION_JSON_VALUE,
