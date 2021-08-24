@@ -59,7 +59,7 @@ public class AccountController {
     }
 
     @GetMapping(value = "getAllTheChats/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation(value = "Get all Accounts",
+    @ApiOperation(value = "Get all Account chats",
             notes = "Get all Account  chats",
             response = Account.class)
     public Set<Chat> getAllTheChats(@PathVariable("id") Long id) {

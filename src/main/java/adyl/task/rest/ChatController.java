@@ -1,10 +1,8 @@
 package adyl.task.rest;
 
 import adyl.task.model.Chat;
-import adyl.task.model.Image;
 import adyl.task.model.Massage;
 import adyl.task.service.ChatService;
-import adyl.task.service.ImageService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -18,20 +16,13 @@ import java.util.List;
 public class ChatController {
     @Autowired
     private ChatService chatService;
-    @Autowired
-    private ImageService imageService;
 
     @PostMapping(value = "createChat", produces = MediaType.APPLICATION_JSON_VALUE,
             consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Create new chat",
-            notes = "Save new Account",
+            notes = "Save new chat",
             response = Chat.class)
     public Chat save(@Validated @RequestBody final Chat chat) {
-        Image image = chat.getChatPicture();
-        if (image != null && image.getId() == null) {
-            image = imageService.save(image);
-            chat.setChatPicture(image);
-        }
         return chatService.save(chat);
     }
 
@@ -45,23 +36,23 @@ public class ChatController {
     }
 
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation(value = "Get by Id",
-            notes = "Get Chat by Id",
+    @ApiOperation(value = "Get chat by Id",
+            notes = "Get chat by Id",
             response = Chat.class)
     public Chat getChatById(@PathVariable("id") Long id) {
         return chatService.getByChatId(id);
     }
 
     @GetMapping(value = "/getMassagesById", produces = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation(value = "Get by Id",
-            notes = "Get Massage by Id",
+    @ApiOperation(value = "Get message by Id",
+            notes = "Get message by Id",
             response = Chat.class)
     public List<Massage> getMassagesById(@PathVariable("id") Long id) {
         return chatService.getMassagesById(id);
     }
 
     @GetMapping(value = "getAllChats", produces = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation(value = "Get all Chats",
+    @ApiOperation(value = "Get all chats",
             notes = "Get all chats",
             response = Chat.class)
     public List<Chat> getAllTheAccounts() {
@@ -69,8 +60,8 @@ public class ChatController {
     }
 
     @DeleteMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation(value = "Delete by Id",
-            notes = "Delete Chat by Id",
+    @ApiOperation(value = "Delete chat by Id",
+            notes = "Delete chat by Id",
             response = Chat.class)
     public void deleteById(@PathVariable("id") Long id) {
         chatService.deleteById(id);

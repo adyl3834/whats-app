@@ -1,6 +1,7 @@
 package adyl.task.service;
 
 import adyl.task.model.Chat;
+import adyl.task.model.Image;
 import adyl.task.model.Massage;
 import adyl.task.repository.ChatRepository;
 import adyl.task.repository.MassageRepository;
@@ -15,8 +16,15 @@ public class ChatService {
     private ChatRepository chatRepository;
     @Autowired
     private MassageRepository massageRepository;
+    @Autowired
+    private ImageService imageService;
 
     public Chat save(Chat chat) {
+        Image image = chat.getChatPicture();
+        if (image != null && image.getId() == null) {
+            image = imageService.save(image);
+            chat.setChatPicture(image);
+        }
         return chatRepository.save(chat);
     }
 
