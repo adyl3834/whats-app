@@ -41,5 +41,5 @@ public class Account implements Serializable {
     @JoinTable(name = "account_sticker_pack",
             joinColumns = {@JoinColumn(name = "account_id")},
             inverseJoinColumns = {@JoinColumn(name = "sticker_pack_id")})
-    private Set<StickerPack> sticker_park = new HashSet<>();
+    private Set<StickerPack> stickerPark = new HashSet<>();
 }

@@ -2,11 +2,11 @@ package adyl.task.rest;
 
 import adyl.task.model.Account;
 import adyl.task.model.Chat;
-import adyl.task.model.Massage;
+import adyl.task.model.Message;
 import adyl.task.model.Sticker;
 import adyl.task.repository.AccountRepository;
 import adyl.task.repository.ChatRepository;
-import adyl.task.repository.MassageRepository;
+import adyl.task.repository.MessageRepository;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -17,18 +17,18 @@ import javax.validation.ConstraintViolationException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
-import static adyl.task.type.MassageType.MASSAGE;
-import static adyl.task.type.MassageType.STICKER;
+import static adyl.task.type.MessageType.MASSAGE;
+import static adyl.task.type.MessageType.STICKER;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-class MassageControllerTest {
+class MessageControllerTest {
     private final String MASSAGE_TEXT = "massage";
 
     @Autowired
-    private MassageController massageController;
+    private MessageController messageController;
     @Autowired
-    private MassageRepository massageRepository;
+    private MessageRepository messageRepository;
     @Autowired
     private AccountRepository accountRepository;
     @Autowired
@@ -36,7 +36,7 @@ class MassageControllerTest {
 
     @AfterEach
     void tearDown() {
-        massageRepository.deleteAll();
+        messageRepository.deleteAll();
         accountRepository.deleteAll();
         chatRepository.deleteAll();
     }
@@ -45,17 +45,17 @@ class MassageControllerTest {
     @DisplayName("/createWithJoin rest api test")
     void saveWithJoin() {
         //prepare
-        Massage massage = prepareMassage();
+        Message message = prepareMassage();
         Account account = accountRepository.save(prepareAccount());
         Chat chat = chatRepository.save(prepareChat());
-        massage.setSender_id(account);
-        massage.setChat_id(chat);
+        message.setSenderId(account);
+        message.setChatId(chat);
         //act
-        Massage save = massageController.save(massage);
+        Message save = messageController.save(message);
         //assert
         assertNotNull(save);
-        assertEquals(MASSAGE_TEXT, massage.getMassage());
-        assertEquals(MASSAGE, save.getMassageType());
+        assertEquals(MASSAGE_TEXT, message.getMassage());
+        assertEquals(MASSAGE, save.getMessageType());
     }
 
     @Test
@@ -63,7 +63,7 @@ class MassageControllerTest {
     void saveWithoutJoin() {
 
         //act
-        Exception ex = assertThrows(ConstraintViolationException.class, () -> massageController.save(prepareMassage()));
+        Exception ex = assertThrows(ConstraintViolationException.class, () -> messageController.save(prepareMassage()));
         //assert
         assertEquals(ex.getClass().getSimpleName(), "ConstraintViolationException");
 
@@ -73,34 +73,34 @@ class MassageControllerTest {
     @DisplayName("/saveWithoutMassageReply rest api test")
     void saveWithoutMassageReply() {
         //prepare
-        Massage massage = prepareMassage();
+        Message message = prepareMassage();
         Account account = accountRepository.save(prepareAccount());
         Chat chat = chatRepository.save(prepareChat());
-        massage.setSender_id(account);
-        massage.setChat_id(chat);
-        Massage save = massageController.save(massage);
-        save.setMassage_reply(save);
+        message.setSenderId(account);
+        message.setChatId(chat);
+        Message save = messageController.save(message);
+        save.setMessageReply(save);
         //act
-        massageController.save(save);
+        messageController.save(save);
         //assert
         assertNotNull(save);
-        assertEquals(MASSAGE_TEXT, massage.getMassage());
-        assertEquals(MASSAGE, save.getMassageType());
-        assertEquals(save.getId(), save.getMassage_reply().getId());
+        assertEquals(MASSAGE_TEXT, message.getMassage());
+        assertEquals(MASSAGE, save.getMessageType());
+        assertEquals(save.getId(), save.getMessageReply().getId());
     }
 
     @Test
     @DisplayName("/saveWithMassageTypeSticker rest api test")
     void saveWithMassageTypeSticker() {
         //prepare
-        Massage massage = prepareMassage();
+        Message message = prepareMassage();
         Account account = accountRepository.save(prepareAccount());
         Chat chat = chatRepository.save(prepareChat());
-        massage.setSender_id(account);
-        massage.setChat_id(chat);
-        massage.setMassageType(STICKER);
+        message.setSenderId(account);
+        message.setChatId(chat);
+        message.setMessageType(STICKER);
         //act
-        Throwable ex = assertThrows(NullPointerException.class, () -> massageController.save(massage));
+        Throwable ex = assertThrows(NullPointerException.class, () -> messageController.save(message));
         //assert
         assertEquals(ex.getMessage(), "MassageType is STICKER, Massage must be sticker!");
     }
@@ -109,15 +109,15 @@ class MassageControllerTest {
     @DisplayName("/saveWithMassageTypeSticker rest api test")
     void saveWithMassageTypeMassage() {
         //prepare
-        Massage massage = prepareMassage();
+        Message message = prepareMassage();
         Account account = accountRepository.save(prepareAccount());
         Chat chat = chatRepository.save(prepareChat());
-        massage.setSender_id(account);
-        massage.setChat_id(chat);
-        massage.setMassage(null);
-        massage.setSticker_id(Sticker.builder().build());
+        message.setSenderId(account);
+        message.setChatId(chat);
+        message.setMassage(null);
+        message.setStickerId(Sticker.builder().build());
         //act
-        Throwable ex = assertThrows(NullPointerException.class, () -> massageController.save(massage));
+        Throwable ex = assertThrows(NullPointerException.class, () -> messageController.save(message));
         //assert
         assertEquals(ex.getMessage(), "MassageType is MASSAGE, Massage must be text!");
     }
@@ -126,16 +126,16 @@ class MassageControllerTest {
     @DisplayName("/update rest api test")
     void update() {
         //prepare
-        Massage massage = prepareMassage();
+        Message message = prepareMassage();
         Account account = accountRepository.save(prepareAccount());
         Chat chat = chatRepository.save(prepareChat());
-        massage.setSender_id(account);
-        massage.setChat_id(chat);
-        Massage save = massageRepository.save(massage);
+        message.setSenderId(account);
+        message.setChatId(chat);
+        Message save = messageRepository.save(message);
         String UPDATE_MASSAGE_TEXT = "updateMassage";
         save.setMassage(UPDATE_MASSAGE_TEXT);
         //act
-        Massage update = massageController.update(save);
+        Message update = messageController.update(save);
         //assert
         assertNotNull(update);
         assertNotNull(update.getId());
@@ -146,44 +146,44 @@ class MassageControllerTest {
     @DisplayName("/getAllMassages rest api test")
     void getAllMassages() {
         //prepare
-        Massage massage = prepareMassage();
+        Message message = prepareMassage();
         Account account = accountRepository.save(prepareAccount());
         Chat chat = chatRepository.save(prepareChat());
-        massage.setSender_id(account);
-        massage.setChat_id(chat);
-        massageRepository.save(massage);
+        message.setSenderId(account);
+        message.setChatId(chat);
+        messageRepository.save(message);
 
-        Massage secondMassage = prepareMassage();
+        Message secondMessage = prepareMassage();
         Account secondAccount = accountRepository.save(prepareAccount());
         Chat secondChat = chatRepository.save(prepareChat());
-        secondMassage.setSender_id(secondAccount);
-        secondMassage.setChat_id(secondChat);
-        massageRepository.save(secondMassage);
+        secondMessage.setSenderId(secondAccount);
+        secondMessage.setChatId(secondChat);
+        messageRepository.save(secondMessage);
         //act
-        ArrayList<Massage> massages = (ArrayList<Massage>) massageController.getAllMassages();
+        ArrayList<Message> messages = (ArrayList<Message>) messageController.getAllMassages();
         //assert
-        assertNotNull(massages);
-        assertEquals(2, massages.size());
+        assertNotNull(messages);
+        assertEquals(2, messages.size());
     }
 
     @Test
     @DisplayName("/delete{} rest api test")
     void delete() {
         //prepare
-        Massage massage = prepareMassage();
+        Message message = prepareMassage();
         Account account = accountRepository.save(prepareAccount());
         Chat chat = chatRepository.save(prepareChat());
-        massage.setSender_id(account);
-        massage.setChat_id(chat);
-        Massage save = massageRepository.save(massage);
+        message.setSenderId(account);
+        message.setChatId(chat);
+        Message save = messageRepository.save(message);
         //act
-        massageController.delete(save.getId());
+        messageController.delete(save.getId());
         //assert
-        assertTrue(massageController.getAllMassages().isEmpty());
+        assertTrue(messageController.getAllMassages().isEmpty());
     }
 
-    private Massage prepareMassage() {
-        return Massage.builder().massage(MASSAGE_TEXT).datetime(LocalDateTime.now()).massageType(MASSAGE).build();
+    private Message prepareMassage() {
+        return Message.builder().massage(MASSAGE_TEXT).datetime(LocalDateTime.now()).messageType(MASSAGE).build();
     }
 
     private Account prepareAccount() {

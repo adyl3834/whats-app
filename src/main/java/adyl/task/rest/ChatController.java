@@ -2,7 +2,7 @@ package adyl.task.rest;
 
 import adyl.task.model.Chat;
 import adyl.task.model.Image;
-import adyl.task.model.Massage;
+import adyl.task.model.Message;
 import adyl.task.service.ChatService;
 import adyl.task.service.ImageService;
 import io.swagger.annotations.ApiOperation;
@@ -56,8 +56,8 @@ public class ChatController {
     @ApiOperation(value = "Get by Id",
             notes = "Get Massage by Id",
             response = Chat.class)
-    public List<Massage> getMassagesById(@PathVariable("id") Long id) {
-        return chatService.getMassagesById(id);
+    public List<Message> getMessagesById(@PathVariable("id") Long id) {
+        return chatService.getMessagesById(id);
     }
 
     @GetMapping(value = "getAllChats", produces = MediaType.APPLICATION_JSON_VALUE)

@@ -1,6 +1,6 @@
 package adyl.task.model;
 
-import adyl.task.type.MassageType;
+import adyl.task.type.MessageType;
 import lombok.*;
 import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;
@@ -12,13 +12,13 @@ import java.time.LocalDateTime;
 
 
 @Entity
-@Table(name = "massage")
+@Table(name = "message")
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
 @Builder
-public class Massage implements Serializable {
+public class Message implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -27,23 +27,23 @@ public class Massage implements Serializable {
     @JoinColumn(name = "chat_id")
     @NotFound(action = NotFoundAction.EXCEPTION)
     @NotNull(message = "Chat_id is mandatory")
-    private Chat chat_id;
+    private Chat chatId;
 
     @ManyToOne
     @JoinColumn(name = "sender_id")
     @NotFound(action = NotFoundAction.EXCEPTION)
     @NotNull(message = "Sender_id is mandatory")
-    private Account sender_id;
+    private Account senderId;
 
     @OneToOne
-    @JoinColumn(name = "massage_reply")
+    @JoinColumn(name = "message_reply")
     @NotFound(action = NotFoundAction.IGNORE)
-    private Massage massage_reply;
+    private Message messageReply;
 
     @Enumerated(EnumType.STRING)
     @NotFound(action = NotFoundAction.EXCEPTION)
-    @NotNull(message = "MassageType is mandatory")
-    private MassageType massageType;
+    @NotNull(message = "MessageType is mandatory")
+    private MessageType messageType;
 
     @Column
     private String massage;
@@ -52,7 +52,7 @@ public class Massage implements Serializable {
     @OneToOne
     @JoinColumn(name = "sticker_id")
     @NotFound(action = NotFoundAction.IGNORE)
-    private Sticker sticker_id;
+    private Sticker stickerId;
 
     @Column(nullable = false)
     @NotNull(message = "DateTime is mandatory")

@@ -134,7 +134,7 @@ class AccountControllerTest {
         Account account = accountRepository.save(prepareAccount());
         //act
         accountController.delete(account.getId());
-        Account accountById = accountRepository.getById(account.getId());
+        Account accountById = accountRepository.findAccountById(account.getId());
         //assert
         assertNull(accountById);
     }

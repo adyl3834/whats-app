@@ -27,8 +27,8 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(errorDetails, HttpStatus.BAD_REQUEST);
     }
 
-    @ExceptionHandler(MassageTypeException.class)
-    public ResponseEntity<?> massageTypeException(MassageTypeException exception, WebRequest request) {
+    @ExceptionHandler(MessageTypeException.class)
+    public ResponseEntity<?> massageTypeException(MessageTypeException exception, WebRequest request) {
         ErrorDetails errorDetails =
                 new ErrorDetails(new Date(), exception.getMessage(), request.getDescription(false));
         return new ResponseEntity<>(errorDetails, HttpStatus.BAD_REQUEST);

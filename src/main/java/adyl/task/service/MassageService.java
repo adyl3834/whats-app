@@ -1,35 +1,37 @@
 package adyl.task.service;
 
-import adyl.task.exception.MassageTypeException;
-import adyl.task.model.Massage;
-import adyl.task.repository.MassageRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import adyl.task.exception.MessageTypeException;
+import adyl.task.model.Message;
+import adyl.task.repository.MessageRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-import static adyl.task.type.MassageType.MASSAGE;
-import static adyl.task.type.MassageType.STICKER;
+import static adyl.task.type.MessageType.MASSAGE;
+import static adyl.task.type.MessageType.STICKER;
 
 @Service
-public class  MassageService {
-    @Autowired
-    private MassageRepository massageRepository;
+public class MassageService {
+    private MessageRepository messageRepository;
 
-    public Massage save(Massage massage) {
-        if (massage.getMassageType().equals(MASSAGE) && massage.getSticker_id() != null && massage.getMassage() == null) {
-            throw new MassageTypeException("MassageType is MASSAGE, Massage must be text!");
-        } else if (massage.getMassageType().equals(STICKER) && massage.getMassage() != null && massage.getSticker_id() == null) {
-            throw new MassageTypeException("MassageType is STICKER, Massage must be sticker!");
-        }
-        return massageRepository.save(massage);
+    public MassageService(MessageRepository messageRepository) {
+        this.messageRepository = messageRepository;
     }
 
-    public List<Massage> findAll() {
-        return (List<Massage>) massageRepository.findAll();
+    public Message save(Message message) {
+        if (message.getMessageType().equals(MASSAGE) && message.getStickerId() != null && message.getMassage() == null) {
+            throw new MessageTypeException("MassageType is MASSAGE, Massage must be text!");
+        } else if (message.getMessageType().equals(STICKER) && message.getMassage() != null && message.getStickerId() == null) {
+            throw new MessageTypeException("MassageType is STICKER, Massage must be sticker!");
+        }
+        return messageRepository.save(message);
+    }
+
+    public List<Message> findAll() {
+        return messageRepository.findAll();
     }
 
     public void deleteById(Long id) {
-        massageRepository.deleteById(id);
+        messageRepository.deleteById(id);
     }
 }

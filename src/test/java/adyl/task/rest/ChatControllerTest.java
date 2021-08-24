@@ -3,10 +3,10 @@ package adyl.task.rest;
 import adyl.task.model.Account;
 import adyl.task.model.Chat;
 import adyl.task.model.Image;
-import adyl.task.model.Massage;
+import adyl.task.model.Message;
 import adyl.task.repository.AccountRepository;
 import adyl.task.repository.ChatRepository;
-import adyl.task.repository.MassageRepository;
+import adyl.task.repository.MessageRepository;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -23,7 +23,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import static adyl.task.type.MassageType.MASSAGE;
+import static adyl.task.type.MessageType.MASSAGE;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -36,11 +36,11 @@ class ChatControllerTest {
     @Autowired
     private AccountRepository accountRepository;
     @Autowired
-    private MassageRepository massageRepository;
+    private MessageRepository messageRepository;
 
     @AfterEach
     void tearDown() {
-        massageRepository.deleteAll();
+        messageRepository.deleteAll();
         chatRepository.deleteAll();
         accountRepository.deleteAll();
     }
@@ -103,7 +103,7 @@ class ChatControllerTest {
         Chat chat = chatRepository.save(prepareChat());
         //act
         chatController.deleteById(chat.getId());
-        Chat nullChat = chatRepository.getById(chat.getId());
+        Chat nullChat = chatRepository.findChatById(chat.getId());
         //assert
         assertNull(nullChat);
     }
@@ -112,26 +112,26 @@ class ChatControllerTest {
     @DisplayName("/getMassageById{id} rest api test")
     void getMassageById() {
         //prepare
-        Massage massage = prepareMassage();
+        Message message = prepareMassage();
         Account account = accountRepository.save(prepareAccount());
         Chat chat = chatRepository.save(prepareChat());
-        massage.setSender_id(account);
-        massage.setChat_id(chat);
-        massageRepository.save(massage);
-        Massage massage2 = prepareMassage();
-        massage2.setSender_id(account);
-        massage2.setChat_id(chat);
-        massageRepository.save(massage2);
-        Massage massage3 = prepareMassage();
-        massage3.setSender_id(account);
-        massage3.setChat_id(chat);
-        massageRepository.save(massage3);
+        message.setSenderId(account);
+        message.setChatId(chat);
+        messageRepository.save(message);
+        Message message2 = prepareMassage();
+        message2.setSenderId(account);
+        message2.setChatId(chat);
+        messageRepository.save(message2);
+        Message message3 = prepareMassage();
+        message3.setSenderId(account);
+        message3.setChatId(chat);
+        messageRepository.save(message3);
         //act
-        List<Massage> massages = chatController.getMassagesById(chat.getId());
+        List<Message> messages = chatController.getMessagesById(chat.getId());
         //assert
-        assertNotNull(massage);
-        assertFalse(massages.isEmpty());
-        assertEquals(2, massages.size());
+        assertNotNull(message);
+        assertFalse(messages.isEmpty());
+        assertEquals(2, messages.size());
 
     }
 
@@ -156,9 +156,9 @@ class ChatControllerTest {
         return Chat.builder().chatName(CHAT_NAME).build();
     }
 
-    private Massage prepareMassage() {
+    private Message prepareMassage() {
         String MASSAGE_TEXT = "massage";
-        return Massage.builder().massage(MASSAGE_TEXT).datetime(LocalDateTime.now()).massageType(MASSAGE).build();
+        return Message.builder().massage(MASSAGE_TEXT).datetime(LocalDateTime.now()).messageType(MASSAGE).build();
     }
 
     private Account prepareAccount() {
